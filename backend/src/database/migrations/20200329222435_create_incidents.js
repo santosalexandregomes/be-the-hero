@@ -1,0 +1,15 @@
+exports.up = function(knex) {
+    return knex.schema.createTable('incidents', function(table){
+    table.increments(); //Cria varios auto_increments 
+    table.string('titulo').notNullable();
+    table.string('descriptions').notNullable();
+    table.decimal('value').notNullable();
+
+    table.string('ong_id').notNullable(); //Chave estrangeira da tabela de ongs
+    table.foreign('ong_id').references('id').inTable('ongs');
+  });
+};
+
+exports.down = function(knex) {
+   return knex.schema.dropTable('incidents');
+};
