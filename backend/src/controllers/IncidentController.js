@@ -3,14 +3,14 @@ const connection = require('../database/connection');
 module.exports = {
     async index(request, response) {
         //Com paginação
-        const { page = 1 } = request.query; //Caso não exista o valor sera 1.
+        //const { page = 1 } = request.query; //Caso não exista o valor sera 1.
 
         const [count] = await connection('incidents').count(); //Dentro do Colchete pois retornara um array, logo assim trata apenas a posição 0.
 
         const incidents = await connection('incidents')
         .join('ongs', 'ongs.id', '=', 'incidents.ong_id')
-        .limit(5)
-        .offset((page -1 ) * 5)//Pular de 5 em 5 registros
+        //.limit(5)
+        //.offset((page -1 ) * 5)//Pular de 5 em 5 registros
         .select([
         'incidents.*', 
         'ongs.nome', 
